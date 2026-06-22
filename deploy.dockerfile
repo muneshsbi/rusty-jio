@@ -1,7 +1,7 @@
 # ==========================================
 # Stage 1: Build the Rust binaries
 # ==========================================
-FROM rust:1.80-slim AS builder
+FROM rust:1.81-slim AS builder
 
 # Install system dependencies needed for compiling (protobuf compiler, pkg-config, etc.)
 RUN apt-get update && apt-get install -y \
@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     libssl-dev \
     git \
+    clang \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up active workspace
