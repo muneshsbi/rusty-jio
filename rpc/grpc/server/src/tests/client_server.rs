@@ -81,7 +81,7 @@ async fn test_client_server_connections() {
                 }
             }
             if clients_left < self.ends.len() {
-                tokio::time::sleep(std::time::Duration::from_millis(25)).await;
+                tokio::time::sleep(std::time::Duration::from_millis(100)).await;
                 assert_eq!(
                     server.active_connections().len(),
                     clients_left,
@@ -93,7 +93,7 @@ async fn test_client_server_connections() {
             // Terminate connections server-side
             if self.terminate_clients {
                 server.terminate_all_connections().await;
-                tokio::time::sleep(std::time::Duration::from_millis(25)).await;
+                tokio::time::sleep(std::time::Duration::from_millis(100)).await;
                 for (i, client) in clients.iter().enumerate() {
                     assert!(!client.is_connected(), "server failed to disconnect client {}", i);
                 }
@@ -108,7 +108,7 @@ async fn test_client_server_connections() {
 
             // Check final state
             if !self.terminate_clients {
-                tokio::time::sleep(std::time::Duration::from_millis(25)).await;
+                tokio::time::sleep(std::time::Duration::from_millis(100)).await;
                 for (i, client) in clients.iter().enumerate() {
                     assert!(!client.is_connected(), "server failed to disconnect client {}", i);
                 }

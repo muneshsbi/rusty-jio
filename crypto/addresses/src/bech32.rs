@@ -101,11 +101,8 @@ impl Address {
 
         let checksum = checksum(fivebit_payload.as_slice(), fivebit_prefix);
 
-        let mut encoded = fivebit_payload;
-        encoded.extend(conv8to5(&checksum.to_be_bytes()[3..]));
-        
         String::from_utf8(
-            encoded.iter().map(|c| CHARSET[*c as usize]).collect(),
+            [fivebit_payload, conv8to5(&checksum.to_be_bytes()[3..])].concat().iter().map(|c| CHARSET[*c as usize]).collect(),
         )
         .expect("All character are valid utf-8")
     }
